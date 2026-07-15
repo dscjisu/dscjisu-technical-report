@@ -35,28 +35,28 @@ GAL = "assets/gallery"
 SEASONS = [
     dict(year="2022 – 23", brand="GDSC",
          organiser="Abhishek Kushwaha", role="Founding Organiser", roll="", core=5,
-         members="50–100", members_n=75,
+         members="~50–100", members_n=75,
          evs=(1, 3),
          note="The founding season. The chapter is established under the Department of "
               "Computer Science \\& Engineering and runs its first info session, its first "
               "external speaker workshop, and its first hosted codefest."),
     dict(year="2023 – 24", brand="GDSC",
          organiser="Chandan Pandey", role="Organiser", roll="", core=6,
-         members="200–300", members_n=250,
+         members="~200–300", members_n=250,
          evs=(4, 8),
          note="Consolidation. Study Jams and a source-code contribution drive push the "
               "chapter deeper into cloud skilling and open source, alongside the annual "
               "onboarding session and a hands-on web bootcamp."),
     dict(year="2024 – 25", brand="GDG",
          organiser="Ankita Chakraborty", role="Organiser", roll="", core=8,
-         members="500–700", members_n=600,
+         members="~500–700", members_n=600,
          evs=(9, 15),
          note="Rebrand to Google Developer Groups (GDG) on Campus and a step-up in cadence: "
               "cross-chapter collaborations (Solution Challenge, React), security and Web3 "
               "tracks, and the first Build with AI."),
     dict(year="2025 – 26", brand="GDG",
          organiser="Ayushman Bhattacharya", role="Organiser (current)", roll="23CS2021016", core=12,
-         members="1,800+", members_n=1800,
+         members="~1,800", members_n=1800,
          evs=(16, 35),
          note="The largest season on record — national hackathons, Hacktoberfest, GSoC "
               "preparation, live CTF and system-design tracks, a Kubernetes/CNCF meetup and "
@@ -301,6 +301,15 @@ def event_images(n):
     files = sorted(set(files))
     return ["%s/%02d/%s" % (GAL, n, os.path.basename(f)) for f in files]
 
+def mem_tex(s):
+    """Membership figures are approximations, so the data records them with a
+    leading plain '~'. That must not reach TeX verbatim — a bare ~ is a
+    non-breaking space and the tilde would silently vanish."""
+    m = (s.get("members") or "").strip()
+    if not m:
+        return ""
+    return (r"$\sim$" + m[1:].lstrip()) if m.startswith("~") else m
+
 def season_stats(s):
     lo, hi = s["evs"]
     evs = [e for e in EVENTS if lo <= e["n"] <= hi]
@@ -447,7 +456,7 @@ def foreword():
 is a student-led technical community operating under the Department of Computer Science \&
 Engineering, JIS University. Run \emph{by the students, for the students}, it has grown across
 four operational years into one of the largest and most active student organisations in the
-university, with a community of over \textbf{1{,}800–1{,}900 members} drawn from every academic
+university, with a community of \textbf{$\sim$1{,}800 members} drawn from every academic
 background.
 
 We build across Artificial Intelligence, Web Development, Cloud Computing, Cybersecurity, Mobile
@@ -511,7 +520,7 @@ def dashboard():
         tile(GRED, "layer-group", "%d" % tot_ev,
              "Events held" + (r" \small(+%d upcoming)" % tot_inc if tot_inc else "")),
         tile(GYEL, "users", "%s{\\small k}" % (f"{tot_ft/1000:.1f}"), "Cumulative footfall"),
-        tile(GGRN, "user-friends", "1.8{\\small k}+", "Community members"),
+        tile(GGRN, "user-friends", "$\\sim$1.8{\\small k}", "Community members"),
     ))
 
     # growth chart
@@ -551,7 +560,7 @@ def dashboard():
             marks.append(r"\fill[white] (%.2f,%.2f) circle (3.6pt);"
                          r"\fill[%s] (%.2f,%.2f) circle (2.6pt);" % (x, y, c, x, y))
             mlabels.append(r"\node[font=\bfseries\small,color=Ink] at (%.2f,%.2f) {%s};"
-                           % (x, y + 0.36, s.get("members", "—")))
+                           % (x, y + 0.36, mem_tex(s) or "—"))
             mlabels.append(r"\node[font=\footnotesize,color=Slate] at (%.2f,-0.42) {%s};"
                            % (x, s["year"]))
         mchart = (r"\begin{center}\begin{tikzpicture}[x=1cm,y=1cm]"
@@ -567,7 +576,7 @@ def dashboard():
         tr.append(
             r"\rule{0pt}{2.6ex}\textcolor{%s}{\rule[-0.2ex]{8pt}{8pt}}~\textbf{%s} & %s & %s & %s & %s & %s & %s \\[2pt]"
             % (c, s["year"], s["brand"], s["organiser"], s.get("core", "—"),
-               s.get("members", "—"), evcell, f"{int(ft):,}"))
+               mem_tex(s) or "—", evcell, f"{int(ft):,}"))
     table = (r"\renewcommand{\arraystretch}{1.15}"
              r"\begin{tabularx}{\linewidth}{@{}l l X c r r r@{}}"
              r"\multicolumn{7}{@{}l}{\footnotesize\color{Slate}\textsc{Season ledger}}\\[3pt]"
@@ -575,7 +584,7 @@ def dashboard():
              r"\arrayrulecolor{Line}\hline\rule{0pt}{1ex}"
              + "".join(tr)
              + r"\hline\rule{0pt}{2.4ex}\textbf{Total} & & & & \textbf{%s} & \textbf{%d}%s & \textbf{%s}\\"
-               % (SEASONS[-1].get("members", "—") if SEASONS else "—",
+               % (mem_tex(SEASONS[-1]) if SEASONS else "—",
                   tot_ev, (r"\;\textcolor{Slate}{\footnotesize+%d\,$\uparrow$}" % tot_inc if tot_inc else ""),
                   f"{int(tot_ft):,}")
              + r"\end{tabularx}")
@@ -592,7 +601,7 @@ def dashboard():
 """ + chart + r"""
 \vspace{14pt}
 
-{\bfseries\color{Ink}Community growth}\quad{\footnotesize\color{Slate}— registered members at the close of each season, from a founding cohort of well under a hundred to over 1,800 today.}
+{\bfseries\color{Ink}Community growth}\quad{\footnotesize\color{Slate}— approximate registered membership at the close of each season, from a founding cohort of well under a hundred to around 1,800 today.}
 """ + mchart + r"""
 \vspace{10pt}
 """ + table + r"""
@@ -632,11 +641,11 @@ def lineage():
 def season_divider(s, idx):
     c = CYCLE[idx % 4]
     _, ne, inc, ft = season_stats(s)
-    upcoming = (r" \qquad\faHourglassHalf~\textbf{%d} upcoming" % inc) if inc else ""
+    upcoming = (r" \quad\mbox{\faHourglassHalf~\textbf{%d} upcoming}" % inc) if inc else ""
     core = s.get("core")
-    core_stat = (r" \qquad\faUserFriends~\textbf{%s} core members" % core) if core else ""
-    mem = s.get("members")
-    mem_stat = (r" \qquad\faUserPlus~\textbf{%s} community members" % mem) if mem else ""
+    core_stat = (r" \quad\mbox{\faUserFriends~\textbf{%s} core}" % core) if core else ""
+    mem = mem_tex(s)
+    mem_stat = (r" \quad\mbox{\faUserPlus~\textbf{%s} members}" % mem) if mem else ""
     return (r"""
 \clearpage
 \phantomsection
@@ -648,14 +657,14 @@ def season_divider(s, idx):
   {\large Organiser \;\textbf{%s}}%s\\[8pt]
   {\small %s}\\[10pt]
   \textcolor{white}{\rule{\linewidth}{0.6pt}}\\[6pt]
-  {\small\faLayerGroup~\textbf{%d} events%s%s \qquad\faUsers~\textbf{%s} footfall \qquad\faTag~%s brand%s}
+  {\small\mbox{\faLayerGroup~\textbf{%d} events}%s%s%s \quad\mbox{\faUsers~\textbf{%s} footfall} \quad\mbox{\faTag~%s brand}}
 \end{tcolorbox}
 \vspace{5pt}
 """ % (s["year"], s["organiser"], s["year"], c, c,
        s["year"], season_brand_name(s["brand"]),
        s["organiser"],
        (r"\;\textcolor{white!85}{\small(Roll No.\ %s)}" % s["roll"]) if s.get("roll") else "",
-       s["note"], ne, upcoming, core_stat, f"{int(ft):,}", s["brand"], mem_stat))
+       s["note"], ne, upcoming, core_stat, mem_stat, f"{int(ft):,}", s["brand"]))
 
 def gallery_caption():
     # styled rule first, then the label sits UNDER the rule — so the gallery is

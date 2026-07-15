@@ -26,7 +26,7 @@
 \contentsline {subsection}{18.~Hacktoberfest Meetup Kolkata 2025}{24}{section*.31}%
 \contentsline {subsection}{19.~Zero to Hero: The Ultimate Web Development Career Path}{26}{section*.32}%
 \contentsline {subsection}{20.~Chill Out \& Level Up: Fun with Git \& GitHub!}{27}{section*.33}%
-\contentsline {subsection}{21.~GDG TechSprint Hackathon 2026}{28}{section*.34}%
+\contentsline {subsection}{21.~GDG TechSprint Hackathon 2026}{27}{section*.34}%
 \contentsline {subsection}{22.~Google TechSprint Chill Talk 101: Unwind and Unleash Your Creativity}{28}{section*.35}%
 \contentsline {subsection}{23.~Tech Winter Break Cohost 2026}{29}{section*.36}%
 \contentsline {subsection}{24.~GSoC Info Session 2026 — GSOC Crack Karna Hain? For Sure}{31}{section*.37}%

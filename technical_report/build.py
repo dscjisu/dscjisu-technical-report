@@ -30,27 +30,33 @@ GAL = "assets/gallery"
 #   ev_override : headline count of completed events (else counted from cards)
 #   incoming    : count of upcoming events for the season
 #   ft_override : headline cumulative footfall (else summed from cards)
+#   members     : registered community size at season close, as printed
+#   members_n   : same figure as a number — drives the growth chart only
 SEASONS = [
     dict(year="2022 – 23", brand="GDSC",
          organiser="Abhishek Kushwaha", role="Founding Organiser", roll="", core=5,
+         members="50–100", members_n=75,
          evs=(1, 3),
          note="The founding season. The chapter is established under the Department of "
               "Computer Science \\& Engineering and runs its first info session, its first "
               "external speaker workshop, and its first hosted codefest."),
     dict(year="2023 – 24", brand="GDSC",
          organiser="Chandan Pandey", role="Organiser", roll="", core=6,
+         members="200–300", members_n=250,
          evs=(4, 8),
          note="Consolidation. Study Jams and a source-code contribution drive push the "
               "chapter deeper into cloud skilling and open source, alongside the annual "
               "onboarding session and a hands-on web bootcamp."),
     dict(year="2024 – 25", brand="GDG",
          organiser="Ankita Chakraborty", role="Organiser", roll="", core=8,
+         members="500–700", members_n=600,
          evs=(9, 15),
          note="Rebrand to Google Developer Groups (GDG) on Campus and a step-up in cadence: "
               "cross-chapter collaborations (Solution Challenge, React), security and Web3 "
               "tracks, and the first Build with AI."),
     dict(year="2025 – 26", brand="GDG",
          organiser="Ayushman Bhattacharya", role="Organiser (current)", roll="23CS2021016", core=12,
+         members="1,800+", members_n=1800,
          evs=(16, 35),
          note="The largest season on record — national hackathons, Hacktoberfest, GSoC "
               "preparation, live CTF and system-design tracks, a Kubernetes/CNCF meetup and "
@@ -527,22 +533,50 @@ def dashboard():
              + r"\draw[Line] (-0.1,0) -- (%.2f,0);" % (W+0.1)
              + "".join(bars) + "".join(labels) + r"\end{tikzpicture}\end{center}")
 
+    # membership growth chart — a filled area under the season-close head-count,
+    # so the compounding curve reads at a glance rather than four separate bars.
+    mrows = [(s, s.get("members_n", 0)) for s, _, _, _ in rows]
+    maxmem = max((m for _, m in mrows), default=0)
+    mchart = ""
+    if maxmem:
+        Mh = 3.4
+        pts = [((i + 0.5) * (W / len(mrows)), Mh * m / maxmem) for i, (_, m) in enumerate(mrows)]
+        poly = " -- ".join("(%.2f,%.2f)" % p for p in pts)
+        area = (r"\fill[GBlue,opacity=0.10] (%.2f,0) -- %s -- (%.2f,0) -- cycle;"
+                % (pts[0][0], poly, pts[-1][0]))
+        line = r"\draw[GBlue,line width=1.4pt] %s;" % poly
+        marks, mlabels = [], []
+        for i, ((s, m), (x, y)) in enumerate(zip(mrows, pts)):
+            c = CYCLE[i % 4]
+            marks.append(r"\fill[white] (%.2f,%.2f) circle (3.6pt);"
+                         r"\fill[%s] (%.2f,%.2f) circle (2.6pt);" % (x, y, c, x, y))
+            mlabels.append(r"\node[font=\bfseries\small,color=Ink] at (%.2f,%.2f) {%s};"
+                           % (x, y + 0.36, s.get("members", "—")))
+            mlabels.append(r"\node[font=\footnotesize,color=Slate] at (%.2f,-0.42) {%s};"
+                           % (x, s["year"]))
+        mchart = (r"\begin{center}\begin{tikzpicture}[x=1cm,y=1cm]"
+                  + r"\draw[Line] (-0.1,0) -- (%.2f,0);" % (W + 0.1)
+                  + area + line + "".join(marks) + "".join(mlabels)
+                  + r"\end{tikzpicture}\end{center}")
+
     # ledger
     tr = []
     for i, (s, ne, inc, ft) in enumerate(rows):
         c = CYCLE[i % 4]
         evcell = str(ne) + (r"\;\textcolor{Slate}{\footnotesize+%d\,$\uparrow$}" % inc if inc else "")
         tr.append(
-            r"\rule{0pt}{2.6ex}\textcolor{%s}{\rule[-0.2ex]{8pt}{8pt}}~\textbf{%s} & %s & %s & %s & %s & %s \\[2pt]"
-            % (c, s["year"], s["brand"], s["organiser"], s.get("core", "—"), evcell, f"{int(ft):,}"))
+            r"\rule{0pt}{2.6ex}\textcolor{%s}{\rule[-0.2ex]{8pt}{8pt}}~\textbf{%s} & %s & %s & %s & %s & %s & %s \\[2pt]"
+            % (c, s["year"], s["brand"], s["organiser"], s.get("core", "—"),
+               s.get("members", "—"), evcell, f"{int(ft):,}"))
     table = (r"\renewcommand{\arraystretch}{1.15}"
-             r"\begin{tabularx}{\linewidth}{@{}l l X c r r@{}}"
-             r"\multicolumn{6}{@{}l}{\footnotesize\color{Slate}\textsc{Season ledger}}\\[3pt]"
-             r"\textbf{Season} & \textbf{Brand} & \textbf{Organiser} & \textbf{Core} & \textbf{Events} & \textbf{Footfall}\\"
+             r"\begin{tabularx}{\linewidth}{@{}l l X c r r r@{}}"
+             r"\multicolumn{7}{@{}l}{\footnotesize\color{Slate}\textsc{Season ledger}}\\[3pt]"
+             r"\textbf{Season} & \textbf{Brand} & \textbf{Organiser} & \textbf{Core} & \textbf{Members} & \textbf{Events} & \textbf{Footfall}\\"
              r"\arrayrulecolor{Line}\hline\rule{0pt}{1ex}"
              + "".join(tr)
-             + r"\hline\rule{0pt}{2.4ex}\textbf{Total} & & & & \textbf{%d}%s & \textbf{%s}\\"
-               % (tot_ev, (r"\;\textcolor{Slate}{\footnotesize+%d\,$\uparrow$}" % tot_inc if tot_inc else ""),
+             + r"\hline\rule{0pt}{2.4ex}\textbf{Total} & & & & \textbf{%s} & \textbf{%d}%s & \textbf{%s}\\"
+               % (SEASONS[-1].get("members", "—") if SEASONS else "—",
+                  tot_ev, (r"\;\textcolor{Slate}{\footnotesize+%d\,$\uparrow$}" % tot_inc if tot_inc else ""),
                   f"{int(tot_ft):,}")
              + r"\end{tabularx}")
 
@@ -556,6 +590,10 @@ def dashboard():
 
 {\bfseries\color{Ink}Events per season}\quad{\footnotesize\color{Slate}— cadence has grown every year, from 3 in the founding season to 19 in 2025–26.}
 """ + chart + r"""
+\vspace{14pt}
+
+{\bfseries\color{Ink}Community growth}\quad{\footnotesize\color{Slate}— registered members at the close of each season, from a founding cohort of well under a hundred to over 1,800 today.}
+""" + mchart + r"""
 \vspace{10pt}
 """ + table + r"""
 
@@ -597,6 +635,8 @@ def season_divider(s, idx):
     upcoming = (r" \qquad\faHourglassHalf~\textbf{%d} upcoming" % inc) if inc else ""
     core = s.get("core")
     core_stat = (r" \qquad\faUserFriends~\textbf{%s} core members" % core) if core else ""
+    mem = s.get("members")
+    mem_stat = (r" \qquad\faUserPlus~\textbf{%s} community members" % mem) if mem else ""
     return (r"""
 \clearpage
 \phantomsection
@@ -608,14 +648,14 @@ def season_divider(s, idx):
   {\large Organiser \;\textbf{%s}}%s\\[8pt]
   {\small %s}\\[10pt]
   \textcolor{white}{\rule{\linewidth}{0.6pt}}\\[6pt]
-  {\small\faLayerGroup~\textbf{%d} events%s%s \qquad\faUsers~\textbf{%s} footfall \qquad\faTag~%s brand}
+  {\small\faLayerGroup~\textbf{%d} events%s%s \qquad\faUsers~\textbf{%s} footfall \qquad\faTag~%s brand%s}
 \end{tcolorbox}
 \vspace{5pt}
 """ % (s["year"], s["organiser"], s["year"], c, c,
        s["year"], season_brand_name(s["brand"]),
        s["organiser"],
        (r"\;\textcolor{white!85}{\small(Roll No.\ %s)}" % s["roll"]) if s.get("roll") else "",
-       s["note"], ne, upcoming, core_stat, f"{int(ft):,}", s["brand"]))
+       s["note"], ne, upcoming, core_stat, f"{int(ft):,}", s["brand"], mem_stat))
 
 def gallery_caption():
     # styled rule first, then the label sits UNDER the rule — so the gallery is

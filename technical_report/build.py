@@ -817,6 +817,6 @@ def build():
 
 if __name__ == "__main__":
     optimize_gallery()          # PNG/oversized -> capped JPEG, before layout
-    with open(os.path.join(BASE, "main.tex"), "w") as f:
+    with open(os.path.join(BASE, "dscjisu_report_21_26.tex"), "w") as f:
         f.write(build())
-    print("wrote main.tex  (%d events, %d seasons)" % (len(EVENTS), len(SEASONS)))
+    print("wrote dscjisu_report_21_26.tex  (%d events, %d seasons)" % (len(EVENTS), len(SEASONS)))

@@ -1,1 +1,11 @@
 node_modules/
+*.lbs
+*.aux
+*.out
+*.blg
+*.bbl
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.toc
+*.log

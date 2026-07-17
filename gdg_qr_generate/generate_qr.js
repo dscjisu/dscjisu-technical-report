@@ -11,7 +11,7 @@ import path from "node:path";
 
 // ---- Config -----------------------------------------------------------------
 const CONFIG = {
-  data: "https://meet.google.com/gps-ejck-wbb",
+  data: "https://gdg.community.dev/events/details/google-gdg-on-campus-jis-university-kolkata-india-presents-swag-distribution-amp-workshop-gemma-for-bharat-hackathon-ft-miro/cohost-gdg-on-campus-jis-university-kolkata-india/",
   logoPath: "branding/gdg_logo.png",
   outputSvg: "gdg_qr_generate/output/qr-output.svg",
   size: 1024, // high-res for posters/social

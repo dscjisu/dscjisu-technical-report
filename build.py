@@ -468,9 +468,9 @@ this document are certified as accurate to the best of the chapter's knowledge.
 \begin{center}
 \begin{tcolorbox}[enhanced,width=12.8cm,colback=Mist,colframe=Mist,arc=5pt,
     left=20pt,right=20pt,top=16pt,bottom=20pt]
-  {\footnotesize\color{Slate}\textsc{Verified by \;\textperiodcentered\; Faculty Advisor}}\\[52pt]
+  {\footnotesize\color{Slate}\textsc{Verified by \;\textperiodcentered\; Faculty Advisor}}\\[46pt]
   \begin{minipage}[b]{0.58\linewidth}{\color{Line}\rule{\linewidth}{0.6pt}}\\[3pt]\textbf{Name}\end{minipage}\hfill
-  \begin{minipage}[b]{0.36\linewidth}{\color{Line}\rule{\linewidth}{0.6pt}}\\[3pt]{\small\color{Slate}Signature \& Date}\end{minipage}\\[14pt]
+  \begin{minipage}[b]{0.36\linewidth}\makebox[\linewidth]{\includegraphics[height=1.05cm]{assets/brand/faculty_signature.png}}\\[-1pt]{\color{Line}\rule{\linewidth}{0.6pt}}\\[3pt]{\small\color{Slate}Signature \& Date}\end{minipage}\\[14pt]
   {\small\color{Slate}Faculty Advisor, GDG on Campus JIS University\\ Department of Computer Science \& Engineering, JIS University}
 \end{tcolorbox}
 \end{center}

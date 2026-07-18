@@ -174,7 +174,7 @@ standard to meet — it is written here exactly, not left to memory or to a priv
 binding for the routine, and as a floor, never a ceiling, for everything else you choose to build on
 top of it.
 
-\vfill
+\vspace{18pt}
 
 \begin{tcolorbox}[enhanced,colback=Mist,colframe=Mist,arc=4pt,left=16pt,right=16pt,top=12pt,bottom=12pt,
     borderline west={3pt}{0pt}{GBlue}]
@@ -185,7 +185,7 @@ top of it.
   lead inherits an answer rather than the same open question.
 \end{tcolorbox}
 
-\vfill
+\vspace{14pt}
 
 \begin{tcolorbox}[enhanced,colback=white,colframe=GGrn,boxrule=1pt,arc=4pt,
     left=16pt,right=16pt,top=12pt,bottom=12pt]
@@ -194,8 +194,6 @@ top of it.
   down here so the next lead does not. Amend it honestly, in your own voice, and sign the handover so
   the chain of responsibility is never broken.
 \end{tcolorbox}
-
-\vfill
 \clearpage
 """
 
@@ -562,11 +560,16 @@ recognisable and reachable. The footer must include the \textbf{lead's name and 
 
 """ + footer + r"""
 
-\vspace{14pt}
+\vspace{16pt}
 {\bfseries\color{Ink}\faIcon{folder-open}~~Event records — Google Drive}\\[2pt]
-For \textbf{every event, online or offline}, upload the following to the chapter's dedicated Google
-Drive folder (one folder per event, named consistently). These three documents are mandatory and are
-what make the Technical Report possible.
+The Drive is the chapter's \textbf{official archive} — one master Google Drive for the chapter, with a
+\textbf{subfolder per event}, named consistently. Where GitHub holds the live coordination of an
+event, the Drive holds its final, signed records. Both are kept: GitHub to run the work, Drive to
+preserve it.
+
+\vspace{8pt}
+For \textbf{every event, online or offline}, upload the following to that event's Drive subfolder.
+These three documents are mandatory and are what make the Technical Report possible.
 \vspace{6pt}
 
 \renewcommand{\arraystretch}{1.35}
@@ -586,24 +589,6 @@ what make the Technical Report possible.
 """
 
 def github_events():
-    tree = r"""\begin{tcolorbox}[enhanced,colback=Mist,colframe=Line,boxrule=0.6pt,arc=4pt,
-    left=14pt,right=14pt,top=12pt,bottom=12pt]
-{\footnotesize\ttfamily\color{Ink}%
-dscjisu/events/\\
-\hspace*{1em}.github/\\
-\hspace*{2.2em}ISSUE\_TEMPLATE/event.yml \hfill {\rmfamily\itshape\color{Slate}the event schema}\\
-\hspace*{2.2em}workflows/update-readme.yml \hfill {\rmfamily\itshape\color{Slate}rebuilds the listing on approval}\\
-\hspace*{1em}events/NN-slug/\\
-\hspace*{2.2em}event.md \hfill {\rmfamily\itshape\color{Slate}canonical record, from the issue}\\
-\hspace*{2.2em}mou.md \hfill {\rmfamily\itshape\color{Slate}drafted MoU, committed ready}\\
-\hspace*{2.2em}attendance/roster.csv \hfill {\rmfamily\itshape\color{Slate}validated attendance (from the form)}\\
-\hspace*{2.2em}graphics/ \hfill {\rmfamily\itshape\color{Slate}banner, thumbnail \& more}\\
-\hspace*{1em}assets/brand/ \hfill {\rmfamily\itshape\color{Slate}GDG brand kit (provided separately)}\\
-\hspace*{1em}scripts/generate.py \hfill {\rmfamily\itshape\color{Slate}Pillow — MoU \& certificates}\\
-\hspace*{1em}README.md \hfill {\rmfamily\itshape\color{Slate}live public listing (auto-updated)}%
-}
-\end{tcolorbox}"""
-
     strip = r"""\noindent\resizebox{\linewidth}{!}{%
 \begin{tikzpicture}[x=1cm,y=1cm,
     stg/.style={rounded corners=4pt,inner xsep=8pt,inner ysep=5pt,font=\bfseries,
@@ -671,7 +656,7 @@ dscjisu/events/\\
     form_fields = [
         ("Full name", "Required."),
         ("Email", "Required — the address the certificate is sent to."),
-        ("Roll number", "The participant's university roll number."),
+        ("College", "The college / institution the attendee is from."),
         ("Academic year", "Year of study."),
         ("Event-specific field", "Optional and flexible — added when a particular event needs a special input."),
     ]
@@ -686,35 +671,30 @@ dscjisu/events/\\
 \ghead{Managing Events on GitHub}{Managing Events on GitHub}
 Event coordination lives in one repository — \texttt{dscjisu/events} — the single source of truth for
 the whole lifecycle. An event is an issue, its stage is a label, and an approved event publishes
-itself to a public listing. Nothing about an event lives in someone's head or a private chat.
+itself to a public listing; nothing about an event lives in someone's head or a private chat.
 Alongside it, \textbf{every event also gets its own repository} for the material it produces — slides,
-code and resources — so nothing worth keeping is lost.
+code and resources. Maintain \texttt{dscjisu/events} as the home of the issue templates and workflows
+that drive all this; treat the repository as the thing to keep current — the exact file names inside
+it may change over time.
 
-\vfill
-
-""" + tree + r"""
-
-\vfill
-
+\vspace{16pt}
 {\bfseries\color{Ink}The event lifecycle}\quad{\footnotesize\color{Slate}— each event moves through these labelled stages.}
 \par\vspace{12pt}
 """ + strip + r"""
 \vspace{10pt}
 {\footnotesize\color{Slate}From any stage an event may be marked \pill{GRed}{cancelled} — the issue is
 closed with a reason and dropped from the listing.}
-\vfill
-\clearpage
 
+\vspace{16pt}
 """ + lctable + r"""
 
-\vfill
-
+\vspace{16pt}
 {\bfseries\color{Ink}Each event has its own repository}\\[2pt]
 Beyond the coordination hub, every event gets a dedicated repository holding the material it produces
 — the slides / PPT, any code or demos, and the resources meant to be shared. The drafted MoU, the
 attendance CSV and the event graphics live here too, so an event's whole footprint sits in one place.
 
-\vspace{6pt}
+\vspace{8pt}
 \begin{tcolorbox}[enhanced,colback=Mist,colframe=Mist,arc=4pt,left=14pt,right=14pt,top=10pt,bottom=10pt,
     borderline west={3pt}{0pt}{GGrn}]
   {\bfseries\color{Ink}\faIcon{archive}~~When it's done, lock it and share it.}\\[2pt]
@@ -722,17 +702,15 @@ attendance CSV and the event graphics live here too, so an event's whole footpri
   \textbf{archived} (made read-only) and \textbf{shared on the chapter's social profile}, so the work
   stays public and credited even after it goes quiet.}
 \end{tcolorbox}
-\vfill
 \clearpage
 
 {\bfseries\color{Ink}The event issue — what it captures}\quad{\footnotesize\color{Slate}— a proposed schema; the lead finalises the fields.}
 \par\vspace{10pt}
 """ + schema + r"""
-\vfill
-\clearpage
 
+\vspace{18pt}
 {\bfseries\color{Ink}\faIcon{cubes}~~What GitHub manages for us}
-\begin{itemize}[leftmargin=1.5em,itemsep=8pt,topsep=6pt]
+\begin{itemize}[leftmargin=1.5em,itemsep=7pt,topsep=6pt]
   \item \textbf{Issues} — one per event, the single canonical record of everything about it.
   \item \textbf{Issue forms} — a structured intake matching the schema, so no detail is missed at the
         start.
@@ -743,12 +721,11 @@ attendance CSV and the event graphics live here too, so an event's whole footpri
   \item \textbf{Assignee} — the core member who owns each event and answers for it.
   \item \textbf{Actions} — regenerate the README on approval, and automate label transitions and
         housekeeping.
-  \item \textbf{Committed artifacts} — the MoU, the event graphics, the attendance CSV and
-        \texttt{event.md}, all version-controlled.
+  \item \textbf{Committed artifacts} — the MoU, the event graphics, the attendance CSV and the event
+        record, all version-controlled.
   \item \textbf{README} — the public, always-current listing the dashboard reads from.
 \end{itemize}
-
-\vfill
+\clearpage
 
 \begin{tcolorbox}[enhanced,colback=white,colframe=GGrn,boxrule=1.2pt,arc=6pt,
     left=18pt,right=18pt,top=15pt,bottom=15pt,drop shadow={black!10}]
@@ -762,19 +739,18 @@ attendance CSV and the event graphics live here too, so an event's whole footpri
   \faIcon{check-square}~~Attendance form ready\\[7pt]
   \faIcon{check-square}~~Dashboard link set}
 \end{tcolorbox}
-\vfill
-\clearpage
 
+\vspace{20pt}
 \ghead{Attendance \& Certificates}{Attendance \& Certificates}
 A single \textbf{fixed Google Form} is circulated for \textbf{every event, of any type}, to take
 attendance. Whoever fills it is on record — and the participation certificate is generated from the
 \textbf{name and email} they give. We keep one schema for this form, with room for a flexible entry
 when an event needs a special input.
-\vspace{8pt}
+\vspace{10pt}
 
 """ + formtable + r"""
 
-\vspace{12pt}
+\vspace{14pt}
 \begin{tcolorbox}[enhanced,colback=white,colframe=GBlue,boxrule=1pt,arc=4pt,
     left=14pt,right=14pt,top=11pt,bottom=11pt]
   {\bfseries\color{GBlue}\faIcon{certificate}~~Every event issues a certificate.}\\[2pt]
@@ -782,17 +758,21 @@ when an event needs a special input.
   participation certificate, generated from the \textbf{name and email} recorded in the form.}
 \end{tcolorbox}
 
-\vspace{10pt}
+\vspace{12pt}
 \begin{tcolorbox}[enhanced,colback=white,colframe=GGrn,boxrule=1pt,arc=4pt,
     left=14pt,right=14pt,top=11pt,bottom=11pt]
-  {\bfseries\color{GGrn}\faIcon{clipboard-check}~~Completion gate.}\\[2pt]
-  {\small\color{Ink}An event can be marked \pill{GGrn}{completed} only when
-  \texttt{events/NN-slug/attendance/} holds a \textbf{valid CSV} — the fixed columns
-  (\textbf{Name, Email, Roll, Year}) present; extra columns are allowed. The lead exports the form's
-  responses (the Excel sheet) to CSV and commits it. The schema is fixed so the columns can be
-  validated automatically, leaving room for alterations.}
+  {\bfseries\color{GGrn}\faIcon{clipboard-check}~~Completion gate.}\\[4pt]
+  {\small\color{Ink}An event can be marked \pill{GGrn}{completed} only when its repository holds a
+  \textbf{valid attendance CSV}:}
+  {\small\color{Ink}
+  \begin{itemize}[leftmargin=1.4em,itemsep=3pt,topsep=4pt]
+    \item The fixed columns — \textbf{Name, Email, College, Year} — are present; extra columns are
+          allowed.
+    \item The lead exports the form's responses (the Excel sheet) to CSV and commits it.
+    \item The schema is fixed so the columns can be validated automatically, leaving room for
+          alterations.
+  \end{itemize}}
 \end{tcolorbox}
-\vfill
 \clearpage
 """
 
@@ -820,8 +800,16 @@ their sizes} are fixed, so every asset drops cleanly into the issue, the dashboa
 than these — speaker cards, agenda slides, story assets, certificates — whatever it needs; add them
 as the event calls for it.}
 
-\vfill
+\vspace{14pt}
+\begin{tcolorbox}[enhanced,colback=white,colframe=GBlue,boxrule=1pt,arc=4pt,
+    left=14pt,right=14pt,top=11pt,bottom=11pt]
+  {\bfseries\color{GBlue}\faIcon{palette}~~One home for the brand assets.}\\[2pt]
+  {\small\color{Ink}All of the chapter's brand assets — logos, banners, templates, fonts and colours —
+  live in \texttt{dscjisu/branding}. Use it as the single source for every graphic across the full
+  tenure, and \textbf{keep it updated as needed}, so the whole team designs from the same, current kit.}
+\end{tcolorbox}
 
+\vspace{14pt}
 {\bfseries\color{Ink}When the graphics are ready}
 \begin{itemize}[leftmargin=1.4em,itemsep=5pt,topsep=4pt]
   \item Post the \textbf{thumbnail} and the \textbf{banner} as a comment on the event issue.
@@ -829,8 +817,7 @@ as the event calls for it.}
   \item Move the event to \pillk{GYel}{graphics-ready}.
 \end{itemize}
 
-\vfill
-
+\vspace{16pt}
 \begin{tcolorbox}[enhanced,colback=white,colframe=GRed,boxrule=1pt,arc=4pt,
     left=14pt,right=14pt,top=11pt,bottom=11pt]
   {\bfseries\color{GRed}\faIcon{share-square}~~Cross-post every offline event.}\\[2pt]
@@ -839,14 +826,13 @@ as the event calls for it.}
   on-ground event has a public footprint across the community's channels.}
 \end{tcolorbox}
 
-\vspace{10pt}
+\vspace{12pt}
 \begin{tcolorbox}[enhanced,colback=Mist,colframe=Mist,arc=4pt,left=14pt,right=14pt,top=9pt,bottom=9pt,
     borderline west={3pt}{0pt}{GYel}]
   {\footnotesize\color{Slate}Freedom in the look, discipline in the format. Keeping the two sizes fixed
   means a poster made for one event fits every surface it needs to — no re-cropping, no surprises on
   the dashboard.}
 \end{tcolorbox}
-\vfill
 \clearpage
 """
 
@@ -878,7 +864,7 @@ nothing important is left out.
 
 """ + table + r"""
 
-\vfill
+\vspace{18pt}
 
 \begin{tcolorbox}[enhanced,colback=white,colframe=GBlue,boxrule=1pt,arc=4pt,
     left=14pt,right=14pt,top=11pt,bottom=11pt]
@@ -897,7 +883,6 @@ nothing important is left out.
   shown. In turn, collaborating with GDG JIS University supports the partner — helping with taking
   sessions, introductory pre-event meets, and registrations wherever feasible.}
 \end{tcolorbox}
-\vfill
 \clearpage
 """
 
@@ -978,7 +963,7 @@ chapter is not looked after; a clean one tells them the opposite. The refresh is
   repository per event, described, and archived once it goes quiet. \\
 \end{tabularx}
 
-\vfill
+\vspace{18pt}
 
 \begin{tcolorbox}[enhanced,colback=white,colframe=GGrn,boxrule=1pt,arc=5pt,left=16pt,right=16pt,top=12pt,bottom=12pt]
   {\bfseries\color{GGrn}\faIcon{robot}~~Automated housekeeping.}\\[2pt]
@@ -999,7 +984,6 @@ chapter is not looked after; a clean one tells them the opposite. The refresh is
   — so a lead with organisation-admin access can bring the whole org up to date in a single sweep
   whenever needed, and re-run it each season.}
 \end{tcolorbox}
-\vfill
 \clearpage
 """
 

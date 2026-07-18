@@ -456,6 +456,9 @@ This report has been reviewed and \textbf{verified by the Faculty Advisor} of GD
 University, Department of Computer Science \& Engineering. The events, figures and records set out in
 this document are certified as accurate to the best of the chapter's knowledge.
 
+This verification is made under the \textbf{2025–26} tenure, during which this document is itself
+compiled and published.
+
 \vspace{34pt}
 \begin{center}
   \begin{tikzpicture}
@@ -469,8 +472,8 @@ this document are certified as accurate to the best of the chapter's knowledge.
 \begin{tcolorbox}[enhanced,width=12.8cm,colback=Mist,colframe=Mist,arc=5pt,
     left=20pt,right=20pt,top=16pt,bottom=20pt]
   {\footnotesize\color{Slate}\textsc{Verified by \;\textperiodcentered\; Faculty Advisor}}\\[46pt]
-  \begin{minipage}[b]{0.58\linewidth}{\color{Line}\rule{\linewidth}{0.6pt}}\\[3pt]\textbf{Name}\end{minipage}\hfill
-  \begin{minipage}[b]{0.36\linewidth}\makebox[\linewidth]{\includegraphics[height=1.05cm]{assets/brand/faculty_signature.png}}\\[-1pt]{\color{Line}\rule{\linewidth}{0.6pt}}\\[3pt]{\small\color{Slate}Signature \& Date}\end{minipage}\\[14pt]
+  \begin{minipage}[b]{0.58\linewidth}{\color{Line}\rule{\linewidth}{0.6pt}}\\[3pt]\textbf{Dr.\ Kaushik Adhikary}\;{\small\color{Slate}(2025–26)}\end{minipage}\hfill
+  \begin{minipage}[b]{0.36\linewidth}\makebox[\linewidth]{\includegraphics[height=1.05cm]{assets/brand/faculty_signature.png}}\\[-1pt]{\color{Line}\rule{\linewidth}{0.6pt}}\\[3pt]{\small\color{Slate}Signature}\end{minipage}\\[14pt]
   {\small\color{Slate}Faculty Advisor, GDG on Campus JIS University\\ Department of Computer Science \& Engineering, JIS University}
 \end{tcolorbox}
 \end{center}

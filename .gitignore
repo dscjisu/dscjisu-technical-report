@@ -9,3 +9,5 @@ node_modules/
 *.synctex.gz
 *.toc
 *.log
+__pycache__/
+*.pyc
